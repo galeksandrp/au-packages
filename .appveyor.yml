@@ -2,26 +2,21 @@
 
 version: '{build}'
 max_jobs: 1
-image: WMF 5
+image: 'Visual Studio 2017'
 # History plugin requires complete log
 #clone_depth: 5
-branches:
-  only:
-  - master
 #build:
 #  verbosity: minimal
 
 environment:
   # Set au version to use or omit to use the latest. Specify branch name to use development version from Github
   au_version:
-  au_push: true
+  au_push: false
   # Force test: use 1 to test all, or N to split testing into N groups
   au_test_groups: 1
 
   # Github token to commit pushed packages to repository
-  github_user_repo: {github_user}/{repository}
-  github_api_key:
-    secure: YOUR_GITHUB_API_KEY_HERE_ENCRYPTED_STRING #https://ci.appveyor.com/tools/encrypt
+  github_user_repo: galeksandrp/au-packages
 
 
   # Mail credentials - for error notifications
@@ -36,13 +31,18 @@ environment:
   # ID of the gist used to save run results - create a gist under the github_user (secret or not) and grab the id - https://gist.github.com/name/id
   # Optional, leave empty to create anonymous gist
   gist_id:
+    secure: IsXJa/u7EhZRw7da6n4UfFgWwwAZ826KCJsR+vJUi+ZZJIH25eiCb6lzBW+N5Zjn
 
   # Force test: gist id for test results
   gist_id_test:
+    secure: IsXJa/u7EhZRw7da6n4UfFgWwwAZ826KCJsR+vJUi+ZZJIH25eiCb6lzBW+N5Zjn
 
   # Chocolatey API key - to push updated packages
   api_key:
     secure: YOUR_CHOCO_API_KEY_HERE_ENCRYPTED_STRING # https://ci.appveyor.com/tools/encrypt
+
+  YANDEX_DISK_TOKEN:
+    secure: LX6gl4NMLAkkBfVRxj57OTUC2Vj1lJN4UgH6hHQ+icSpf5Saw9Gxt8XNUHmkPXfe
 
 init:
 - git config --global user.email "chocolatey@realdimensions.net"
