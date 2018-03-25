@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>i2p</id>
+    <version>0.9.32</version>
+    <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/master/i2p</packageSourceUrl>
+    <owners>galeksandrp</owners>
+    <title>I2P</title>
+    <authors>zzz</authors>
+    <projectUrl>https://geti2p.net</projectUrl>
+    <iconUrl>https://upload.wikimedia.org/wikipedia/commons/a/ae/I2P_logo.svg</iconUrl>
+    <copyright>Copyright (c) 2004-2018 zzz</copyright>
+    <licenseUrl>https://github.com/i2p/i2p.i2p/blob/master/LICENSE.txt</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/i2p/i2p.i2p</projectSourceUrl>
+    <docsUrl>https://geti2p.net/en/faq</docsUrl>
+    <bugTrackerUrl>https://trac.i2p2.de</bugTrackerUrl>
+    <tags>i2p overlay anonymity tor proxy socks socks5 p2p</tags>
+    <summary>I2P is an anonymous overlay network - a network within a network. It is intended to protect communication from dragnet surveillance and monitoring by third parties such as ISPs</summary>
+    <description>I2P is an anonymous overlay network - a network within a network. It is intended to protect communication from dragnet surveillance and monitoring by third parties such as ISPs.
+
+I2P is used by many people who care about their privacy: activists, oppressed people, journalists and whistleblowers, as well as the average person.
+
+No network can be "perfectly anonymous". The continued goal of I2P is to make attacks more and more difficult to mount. Its anonymity will get stronger as the size of the network increases and with ongoing academic review.
+
+I2P is available on desktops, embedded systems (like the Raspberry Pi) and Android phones. Help spread the word!
+</description>
+    <releaseNotes>https://github.com/i2p/i2p.i2p/releases</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
