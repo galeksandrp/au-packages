@@ -1,6 +1,7 @@
 # AU template: https://github.com/majkinetor/au-packages-template
 
 version: '{build}'
+skip_tags: true
 max_jobs: 1
 image: 'Visual Studio 2017'
 # History plugin requires complete log
@@ -10,8 +11,8 @@ image: 'Visual Studio 2017'
 
 environment:
   # Set au version to use or omit to use the latest. Specify branch name to use development version from Github
-  au_version: request-headers
-  au_push: false
+  au_version: trust-package-checksums
+  au_push: true
   # Force test: use 1 to test all, or N to split testing into N groups
   au_test_groups: 1
 
@@ -39,10 +40,15 @@ environment:
 
   # Chocolatey API key - to push updated packages
   api_key:
-    secure: YOUR_CHOCO_API_KEY_HERE_ENCRYPTED_STRING # https://ci.appveyor.com/tools/encrypt
+    secure: Xj1/G205BWukWmwjBWaRfQ48TgyHpYmv+wKT9C8I8GX5cCRygpQTV3SY6Zkv3Tg2 # https://ci.appveyor.com/tools/encrypt
 
   YANDEX_DISK_TOKEN:
     secure: LX6gl4NMLAkkBfVRxj57OTUC2Vj1lJN4UgH6hHQ+icSpf5Saw9Gxt8XNUHmkPXfe
+
+  push_url:
+    secure: 1kUKPV7OAk06r4CnRfnHvYfhKxDnpGuoZSgAiXvrkzdSbbCsZ6drme0W787jcwukK4lYwbsAyHI6eETS85yoqw==
+
+  TrustPackageChecksums: true
 
 init:
 - git config --global user.email "chocolatey@realdimensions.net"
