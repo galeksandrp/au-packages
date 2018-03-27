@@ -9,4 +9,4 @@ $packageArgs = @{
   checksum               = '48cc6c834a7aea8e2372ae0eb65a1f0717e5e782a22df0cf3e6990fdd52c84f1'
   checksumType           = 'sha256'
 }
-Get-ChocolateyWebFile @packageArgs > $null
+Get-ChocolateyWebFile @packageArgs
