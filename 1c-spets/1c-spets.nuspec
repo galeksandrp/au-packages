@@ -4,7 +4,7 @@
   <metadata>
     <id>1c-spets</id>
     <version>2018.03.21</version>
-    <packageSourceUrl>https://github.com/galeksandrp/chocolatey-packages/tree/1c-spets</packageSourceUrl>
+    <packageSourceUrl>https://github.com/galeksandrp/chocolatey-packages/tree/1c/1c-spets</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>1C:Spets (Install)</title>
     <authors>___</authors>
@@ -17,7 +17,7 @@
     <docsUrl>http://a.b</docsUrl>
     <mailingListUrl>http://a.b</mailingListUrl>
     <bugTrackerUrl>http://a.b</bugTrackerUrl>
-    <tags>admin notsilent</tags>
+    <tags></tags>
     <summary></summary>
     <description>___</description>
     <releaseNotes></releaseNotes>
