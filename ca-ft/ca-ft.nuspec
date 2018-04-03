@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>ca-ft</id>
+    <version>0.1.0</version>
+    <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/master/ca-ft</packageSourceUrl>
+    <owners>galeksandrp</owners>
+    <title>Fintender CA</title>
+    <authors>FINTENDER.RU</authors>
+    <projectUrl>https://fintender.ru/crypto</projectUrl>
+    <iconUrl>http://ft-crypto.ru/attachments/Logo/ft_crypto_logo.png</iconUrl>
+    <copyright>Copyright © 2013-2017 FINTENDER.RU</copyright>
+    <licenseUrl>http://ft-crypto.ru/about-us/</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <docsUrl>http://cryptoca.ru/data/documents/kornevie.pdf</docsUrl>
+    <bugTrackerUrl>http://ft-crypto.ru</bugTrackerUrl>
+    <tags>fintender ft-crypto cryptoca digital-signature signature csr browser</tags>
+    <summary>Fintender</summary>
+    <description>Fintender</description>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
