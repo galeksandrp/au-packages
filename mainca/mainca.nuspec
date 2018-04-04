@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>mainca</id>
+    <version>2012.07.20</version>
+    <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/1c/mainca</packageSourceUrl>
+    <owners>galeksandrp</owners>
+    <title>Main Certificate Authority (Install)</title>
+    <authors>Минкомсвязь России</authors>
+    <projectUrl>https://e-trust.gosuslugi.ru/MainCA</projectUrl>
+    <iconUrl>https://e-trust.gosuslugi.ru/Content/themes/base/images/minsvyaz.png</iconUrl>
+    <copyright>Copyright (c) 2012-2027 Минкомсвязь России</copyright>
+    <licenseUrl>https://e-trust.gosuslugi.ru/Doc</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <docsUrl>https://e-trust.gosuslugi.ru/docs/FAQ.pdf</docsUrl>
+    <bugTrackerUrl>https://e-trust.gosuslugi.ru/Contact</bugTrackerUrl>
+    <tags>root ca certificate admin</tags>
+    <summary>Russian authority Root certificate, on which Certificate Authorities that comply russian law depends</summary>
+    <description>This package contains Russian authority Root certificate, on which Certificate Authorities that comply russian law depends</description>
+    <releaseNotes>https://e-trust.gosuslugi.ru/MainCA</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
