@@ -47,6 +47,12 @@ environment:
   push_url:
     secure: 1kUKPV7OAk06r4CnRfnHvYfhKxDnpGuoZSgAiXvrkzdSbbCsZ6drme0W787jcwukK4lYwbsAyHI6eETS85yoqw==
 
+  1C_USERNAME:
+    secure: PfjLaMgeOEeYbn3Rx4UBSA==
+
+  1C_PASSWORD:
+    secure: OtyD7HJLCJn07582k+7gMw==
+
   TrustPackageChecksums: true
 
 init:
@@ -81,7 +87,7 @@ build_script:
     if ( ($Env:APPVEYOR_SCHEDULED_BUILD -ne 'true') -and ($Env:APPVEYOR_FORCED_BUILD -ne 'true') ) {
         switch -regex ($Env:APPVEYOR_REPO_COMMIT_MESSAGE)
         {
-            '\[AU (.+?)\]'   { $forced = $Matches[1] }
+            '\[AU (.+?)\]'   { $forced = $Matches[1] -split ' ' -match ':' -join ' '; $packages = $Matches[1] -split ' ' | % {($_ -split ':')[0]} }
 
             '\[PUSH (.+?)\]' {
                 $packages = $Matches[1] -split ' '
@@ -100,7 +106,7 @@ build_script:
         }
     }
 
-    ./update_all.ps1 -ForcedPackages $forced
+    ./update_all.ps1 -Name $packages -ForcedPackages $forced
     7z a au_temp.zip $Env:TEMP\chocolatey\au\*
 
 artifacts:
