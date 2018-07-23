@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>chromepass</id>
+    <version>1.45</version>
+    <title>ChromePass</title>
+    <authors>Nir Sofer</authors>
+    <owners>dtgm</owners>
+    <licenseUrl>http://www.nirsoft.net/utils/chromepass.html</licenseUrl>
+    <projectUrl>http://www.nirsoft.net/utils/chromepass.html</projectUrl>
+    <iconUrl>https://cdn.rawgit.com/dtgm/chocolatey-packages/2697586f564894b3346352497da46f320a02e725/icons/chromepass.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ChromePass is a small password recovery tool that allows you to view the user names and passwords stored by Google Chrome Web browser.
+
+For each password entry, the following information is displayed: Origin URL, Action URL, User Name Field, Password Field, User Name, Password, and Created Time.
+
+You can select one or more items and then save them into text/html/xml file or copy them to the clipboard.</description>
+    <summary>Chrome Browser Password Recovery</summary>
+    <releaseNotes>#### Package
+* Automatically built and uploaded by [dtgm](https://chocolatey.org/profiles/dtgm)</releaseNotes>
+    <copyright>© 2008 NirSoft</copyright>
+    <tags>chrome password recover</tags>
+    <packageSourceUrl>https://github.com/dtgm/chocolatey-packages/tree/master/automatic/chromepass/</packageSourceUrl>
+  </metadata>
+</package>
