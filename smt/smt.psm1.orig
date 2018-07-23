@@ -1,0 +1,222 @@
+function Smit-Init {
+	if (!${env:PROGRAMFILES(X86)}) {
+		${env:PROGRAMFILES(X86)} = $env:PROGRAMFILES
+	}
+}
+
+function Self-Update {
+	Smit-Init
+	
+	#Register-PSRepository 'appveyor' 'https://ci.appveyor.com/nuget/galeksandrp' -PublishLocation 'https://ci.appveyor.com/nuget/galeksandrp/api/v2/package'
+	$password = ConvertTo-SecureString "$env:APPVEYOR_PASSWORD" -AsPlainText -Force
+	$credential = New-Object System.Management.Automation.PSCredential -ArgumentList $env:APPVEYOR_NAME, $password
+	Install-Module 'smt' -Repository 'appveyor' -Credential $credential -Force
+
+	choco install -y nxlog
+	choco install -y git
+	choco install -y sysinternals
+	cd "${env:PROGRAMFILES(X86)}\nxlog\conf"
+	git init
+	git remote add origin "https://${env:BITBUCKET_NAME}:${env:BITBUCKET_PASSWORD}@bitbucket.org/galeksandrp/2833passwords.git"
+	git remote set-url origin "https://${env:BITBUCKET_NAME}:${env:BITBUCKET_PASSWORD}@bitbucket.org/galeksandrp/2833passwords.git"
+	git fetch origin backupnxlogConfig
+	git checkout origin/backupnxlogConfig -f
+	$config = (cat .\nxlog.conf) -replace 'C:\\Program Files \(x86\)\\',"${env:PROGRAMFILES(X86)}\"
+	[IO.File]::WriteAllLines("${env:ProgramFiles(x86)}\nxlog\conf\nxlog.conf", $config, (New-Object System.Text.UTF8Encoding $False))
+	net stop nxlog
+	net start nxlog
+}
+
+function Self-Update-Beta {
+	#Register-PSRepository 'appveyor' 'https://ci.appveyor.com/nuget/galeksandrp' -PublishLocation 'https://ci.appveyor.com/nuget/galeksandrp/api/v2/package'
+	$password = ConvertTo-SecureString "$env:APPVEYOR_PASSWORD" -AsPlainText -Force
+	$credential = New-Object System.Management.Automation.PSCredential -ArgumentList $env:APPVEYOR_NAME, $password
+	Install-Module 'smt' -Repository 'appveyor' -Credential $credential -RequiredVersion '0.1.0' -Force
+}
+
+function Smit-Self-Update-Lite {
+	#Register-PSRepository 'appveyor' 'https://ci.appveyor.com/nuget/galeksandrp' -PublishLocation 'https://ci.appveyor.com/nuget/galeksandrp/api/v2/package'
+	$password = ConvertTo-SecureString "$env:APPVEYOR_PASSWORD" -AsPlainText -Force
+	$credential = New-Object System.Management.Automation.PSCredential -ArgumentList $env:APPVEYOR_NAME, $password
+	Install-Module 'smt' -Repository 'appveyor' -Credential $credential -Force
+}
+
+function Smit-Test-Import {
+	'Imported succesfully'
+}
+
+function Remove-Expired-Certs {
+	Smit-Init
+
+	& "${env:PROGRAMFILES(X86)}\Crypto Pro\CSP\csptest.exe" -property -cinstall -cont '\\.\REGISTRY\03-04-2019-fintender-qualified'
+	& "${env:PROGRAMFILES(X86)}\Crypto Pro\CSP\csptest.exe" -property -cinstall -cont '\\.\REGISTRY\08-06-2019-eetp'
+
+	rm Cert:\CurrentUser\My\0E94852659C4C0F67861FE137A8C189387702A6B # 03-04-2019-fintender
+	rm Cert:\CurrentUser\My\8A141B4ACC13D9E85D219E6D93D90944B3B9064C # 20-06-2018-eetp
+	rm Cert:\CurrentUser\My\F53C550CE2D04FAD20CD572E92C16FDB2F68B5DF # 08.04.2018-fintender
+	rm Cert:\CurrentUser\My\EBB2CD25A8867400D0CAAF3C8662BE198ECC7444 # 07.04.2017-medikl
+	rm Cert:\CurrentUser\My\68058817E271D9DE6B7874DCA3A207E636990B57 # 27-06-2017-kontur
+	rm Cert:\CurrentUser\My\B8B6CAA9FBD790E2D06C53D7ABE6EB23D1EF9C1E # 23.06.2016-tenzor
+	rm Cert:\CurrentUser\My\C8BF645C44E9C680A0A32D78E5B693978BC6831B # 30-07-2014-eetp
+	rm Cert:\CurrentUser\My\0C489DFB411E096CAD80096BAA46CEFCD98C4B4B # 25-07-2014-eetp
+}
+
+function Smit-Remove-Expired-Bookkeeping-Keys {
+	Smit-Init
+
+	& "${env:PROGRAMFILES(X86)}\Crypto Pro\CSP\csptest.exe" -property -cinstall -cont '\\.\REGISTRY\16-10-2019-spets'
+	& "${env:PROGRAMFILES(X86)}\Crypto Pro\CSP\csptest.exe" -property -cinstall -cont '\\.\REGISTRY\16-10-2019-medikl'
+	& "${env:PROGRAMFILES(X86)}\Crypto Pro\CSP\csptest.exe" -property -cinstall -cont '\\.\REGISTRY\16-10-2019-soyuz'
+
+	rm Cert:\CurrentUser\My\005477FF13E765F8C832846BAF0B2C4FC24AD96C # 19-08-2018-medikl
+	rm Cert:\CurrentUser\My\37EB5B16D6395D346CFBEEFD634BEAB2DC6C3BD7 # 19-08-2018-soyuz
+	rm Cert:\CurrentUser\My\1FB684EC6B46FCC9C63298B284CD9A7EEAC52CE5 # 19-08-2018-spets
+	rm Cert:\CurrentUser\My\CC6776D7B10C9BC3B227649B7AD2806980BEAF68 # 14.07.2017-souyz
+	rm Cert:\CurrentUser\My\714A23650A96A0FB48F0E6CE4E2112F92DCE9748 # 14.07.2017-medikl
+	rm Cert:\CurrentUser\My\1A6D9E95D7C69EBBAABF03C4524DB3A9DB710BA4 # 14.07.2017-spets
+}
+
+function Smit-Remove-Bookkeeping-Keys-Except-Medikl {
+	Smit-Init
+
+<<<<<<< HEAD
+	& "${env:PROGRAMFILES(X86)}\Crypto Pro\CSP\csptest.exe" -property -cinstall -cont '\\.\REGISTRY\19-08-2018-medikl'
+
+	rm Cert:\CurrentUser\My\1DE8C6DA670BC39E856CFF45FAEBCAE861C22839 # 16-10-2019-soyuz
+	rm Cert:\CurrentUser\My\1D754742D5A1E59E70673BD149F757B774673AC5 # 16-10-2019-spets
+	rm Cert:\CurrentUser\My\AA75166C683AD4D44E0538138AE0DEFD293ACF31 # 16-10-2019-medikl
+	rm Cert:\CurrentUser\My\37EB5B16D6395D346CFBEEFD634BEAB2DC6C3BD7 # 19-08-2018-soyuz
+	rm Cert:\CurrentUser\My\1FB684EC6B46FCC9C63298B284CD9A7EEAC52CE5 # 19-08-2018-spets
+	rm Cert:\CurrentUser\My\CC6776D7B10C9BC3B227649B7AD2806980BEAF68 # 14.07.2017-soyuz
+=======
+	rm Cert:\CurrentUser\My\005477FF13E765F8C832846BAF0B2C4FC24AD96C # 19-08-2018-medikl
+	rm Cert:\CurrentUser\My\37EB5B16D6395D346CFBEEFD634BEAB2DC6C3BD7 # 19-08-2018-soyuz
+	rm Cert:\CurrentUser\My\1FB684EC6B46FCC9C63298B284CD9A7EEAC52CE5 # 19-08-2018-spets
+	rm Cert:\CurrentUser\My\CC6776D7B10C9BC3B227649B7AD2806980BEAF68 # 14.07.2017-souyz
+>>>>>>> 8a6c43ff0... Update certificates
+	rm Cert:\CurrentUser\My\714A23650A96A0FB48F0E6CE4E2112F92DCE9748 # 14.07.2017-medikl
+	rm Cert:\CurrentUser\My\1A6D9E95D7C69EBBAABF03C4524DB3A9DB710BA4 # 14.07.2017-spets
+}
+
+function Smit-Remove-Metro-Apps {
+	get-appxpackage | ? {$_.Name -ne 'Microsoft.WindowsStore' -and $_.Name -ne 'Microsoft.WindowsCalculator'} | Remove-AppxPackage
+	#get-appxpackage -allusers *windowscalculator* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+	#get-appxpackage -allusers *windowsstore* | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+}
+
+function Smit-Find-1CD {
+	choco install -y everything
+	#kill -Force (Get-WmiObject Win32_Process -Filter "name = 'Everything.exe'" | ? {$_.CommandLine -notmatch ' -svc(?: |$)'}).ProcessId
+	& "C:\Program Files\Everything\Everything.exe"
+	sleep 5
+	(es -r '\.rdp$') -notmatch '\Default.rdp'
+}
+
+function Smit-Set-RDP-Hostname {
+	rm 'C:\RDP\1Ñ.RDP'
+
+	"C:\Users\$env:USER_NAME\Desktop\1Ñ.RDP",
+	"C:\Users\$env:ADMIN_NAME\Desktop\1Ñ.RDP",
+	"C:\Users\$env:USER_NAME\Desktop\ÝÖÏ explorer.rdp",
+	"C:\Users\$env:USER_NAME\Desktop\ÝÖÏ Èíòåðíåò.rdp",
+	'C:\Users\zagdali\Desktop\ÝÖÏ explorer.rdp',
+	'C:\Users\$env:USER_NAME\Desktop\1c.rdp',
+	'C:\Users\$env:ADMIN_NAME\Desktop\1c.rdp' | foreach {(cat "$_") -replace 'full address:s:192.168.1.10','full address:s:z10' -replace 'workspace id:s:192.168.1.10','workspace id:s:z10' -replace 'full address:s:z10.specmedtorg.ru','full address:s:z10' -replace 'workspace id:s:z10.specmedtorg.ru','workspace id:s:z10' | Out-File "$_"}
+}
+
+function Smit-Bash-OneDrive-Upload {
+	choco install -y bash-onedrive-upload
+	$config = (cat "$env:ChocolateyInstall/lib/bash-onedrive-upload/tools/bash-onedrive-upload/onedrive.cfg") -replace 'export api_client_id=.*',"export api_client_id='$env:MICROSOFT_API_CLIENT_ID'" -replace 'export api_client_secret=.*',"export api_client_secret='$env:MICROSOFT_API_CLIENT_SECRET'"
+	[IO.File]::WriteAllLines("$env:ChocolateyInstall/lib/bash-onedrive-upload/tools/bash-onedrive-upload/onedrive.cfg", $config, (New-Object System.Text.UTF8Encoding $False))
+	& "$env:ProgramFiles\Git\usr\bin\bash.exe" --login -c '$ChocolateyInstall/lib/bash-onedrive-upload/tools/bash-onedrive-upload/onedrive-upload -f Apps/GAP -r /C/1*BASE/Spets/1Cv8.1CD $(date +%Y_%m_%d_%H_%M_%S)_Spets.1cd'
+}
+
+function Invoke-WMSettingsChange
+{
+#requires -version 2
+
+if (-not ("win32.nativemethods" -as [type])) {
+    # import sendmessagetimeout from win32
+    add-type -Namespace Win32 -Name NativeMethods -MemberDefinition @"
+[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+public static extern IntPtr SendMessageTimeout(
+    IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam,
+    uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);
+"@
+}
+
+$HWND_BROADCAST = [intptr]0xffff;
+$WM_SETTINGCHANGE = 0x1a;
+$result = [uintptr]::zero
+
+# notify all windows of environment block change
+[win32.nativemethods]::SendMessageTimeout($HWND_BROADCAST, $WM_SETTINGCHANGE,
+	[uintptr]::Zero, "Environment", 2, 5000, [ref]$result);
+}
+
+function Smit-Run {
+	param($command, $credential, $logfilename)
+	
+	if ($logfilename -eq 'filetypes') {
+		$version = (get-module smt).Version.toString()
+	
+		$logfilename = "filetypes-$version"
+	}
+	
+	if ($credential) {
+		if ($logfilename) {
+			md "$env:SYSTEMDRIVE\Users\Default\AppData\Local\Temp\logs"
+			psexec -accepteula -nobanner -h -u $credential.NAME -p $credential.PASSWORD powershell $command 2>&1 | Out-file "$env:SYSTEMDRIVE\Users\Default\AppData\Local\Temp\logs\$logfilename.log" -Encoding UTF8 -Append
+		} else {
+			psexec -accepteula -nobanner -h -u $credential.NAME -p $credential.PASSWORD powershell $command
+		}
+	} else {
+		if ($logfilename) {
+			Invoke-Expression $command 2>&1 | Out-file "$env:SYSTEMDRIVE\Users\Default\AppData\Local\Temp\logs\$logfilename.log" -Encoding UTF8 -Append
+		} else {
+			Invoke-Expression $command
+		}
+	}
+}
+
+function Smit-SetSID {
+	$userSID = (Get-WmiObject 'win32_useraccount' -Filter "name = '$env:USER_NAME' AND domain = '$env:COMPUTERNAME'").SID
+	[System.Environment]::SetEnvironmentVariable('USER_SID', $userSID, 'User')
+	$testResult = $userSID -eq $env:USER_SID
+	echo "$env:USER_NAME ${testResult}: $userSID = $env:USER_SID"
+
+	$adminSID = (Get-WmiObject 'win32_useraccount' -Filter "name = '$env:ADMIN_NAME' AND domain = '$env:COMPUTERNAME'").SID
+	[System.Environment]::SetEnvironmentVariable('ADMIN_SID', $adminSID, 'User')
+	$testResult = $adminSID -eq $env:ADMIN_SID
+	echo "$env:ADMIN_NAME ${testResult}: $adminSID = $env:ADMIN_SID"
+	
+	echo "RDP_NAME: $env:RDP_NAME"
+	
+	echo "GITHUB_NAME: $env:GITHUB_NAME"
+	echo "BITBUCKET_NAME: $env:BITBUCKET_NAME"
+	echo "GITLAB_NAME: $env:GITLAB_NAME"
+	echo "VSTS_NAME: $env:VSTS_NAME"
+}
+
+function Smit-LogEnv {
+	echo "GITHUB_NAME: $env:GITHUB_NAME"
+	echo "BITBUCKET_NAME: $env:BITBUCKET_NAME"
+	echo "GITLAB_NAME: $env:GITLAB_NAME"
+	echo "VSTS_NAME: $env:VSTS_NAME"
+}
+
+function Smit-Runas-User {
+	param($command, $logfilename)
+	Smit-Run $command @{NAME = $env:USER_NAME; PASSWORD = "$env:USER_PASSWORD"} $logfilename
+}
+
+function Smit-Runas-Admin {
+	param($command, $logfilename)
+	Smit-Run $command @{NAME = $env:ADMIN_NAME; PASSWORD = "$env:ADMIN_PASSWORD"} $logfilename
+}
+
+function Smit-Runas-UserAdmin {
+	param($command, $logfilename)
+	Smit-Runas-User $command $logfilename
+	Smit-Runas-Admin $command $logfilename
+}
