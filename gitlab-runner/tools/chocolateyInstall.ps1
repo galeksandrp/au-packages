@@ -43,6 +43,12 @@ if ($pp.Service) {
     }
     iex $cmd
 
+    $bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
+
+    $path = "$env:PROGRAMFILES\Git\bin\bash.exe -c `"$bashCommand`""
+
+    Get-WmiObject win32_service -Filter "Name='gitlab-runner'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
+
     Write-Host "Starting service"
     iex "$runner_path start"
 }
