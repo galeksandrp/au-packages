@@ -10,7 +10,7 @@ if ($current_dir) {
     Write-Host 'Using previous gitlab-runner install path:' $current_dir
     $pp.InstallDir = $current_dir
 } else {
-    if (!$pp.InstallDir) { $pp.InstallDir = "c:\gitlab-runner" }
+    if (!$pp.InstallDir) { $pp.InstallDir = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)\gitlab-runner" }
     Write-Host 'Using install directory:' $pp.InstallDir
 }
 $installDir = $pp.InstallDir
