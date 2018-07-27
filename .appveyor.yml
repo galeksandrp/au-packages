@@ -42,7 +42,7 @@ environment:
     secure: Xj1/G205BWukWmwjBWaRfQ48TgyHpYmv+wKT9C8I8GX5cCRygpQTV3SY6Zkv3Tg2 # https://ci.appveyor.com/tools/encrypt
 
   YANDEX_DISK_TOKEN:
-    secure: LX6gl4NMLAkkBfVRxj57OTUC2Vj1lJN4UgH6hHQ+icSpf5Saw9Gxt8XNUHmkPXfe
+    secure: r+PHuBnnuplMxGrJPnH6RR6zYSinNQ182qQBBtT1y3koVZ5OKPeYppOdcNYAjZIr
 
   push_url:
     secure: 1kUKPV7OAk06r4CnRfnHvYfhKxDnpGuoZSgAiXvrkzdSbbCsZ6drme0W787jcwukK4lYwbsAyHI6eETS85yoqw==
