@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>remote-syslog2</id>
-    <version>0.20</version>
+    <version>0.19</version>
     <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/master/remote-syslog2</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>remote_syslog2</title>
