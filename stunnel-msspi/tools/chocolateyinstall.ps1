@@ -1,10 +1,10 @@
 ﻿$packageArgs = @{
   packageName            = "$env:chocolateyPackageName"
-  url                    = 'https://github.com/deemru/stunnel/releases/download/stunnel-5.48-msspi-0.106/stunnel-5.48-msspi-0.106_windows-386.zip'
-  url64bit               = 'https://github.com/deemru/stunnel/releases/download/stunnel-5.48-msspi-0.106/stunnel-5.48-msspi-0.106_windows-amd64.zip'
+  url                    = 'https://github.com/deemru/stunnel/releases/download/stunnel-5.43-msspi-0.98/stunnel-5.43-msspi-0.98_windows-386.zip'
+  url64bit               = 'https://github.com/deemru/stunnel/releases/download/stunnel-5.43-msspi-0.98/stunnel-5.43-msspi-0.98_windows-amd64.zip'
   UnzipLocation          = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)"
-  checksum               = '04a3ed06985a82bc49bb850370e7f82daae9dbc76e6b48b6e8fce26d114873d3'
-  checksum64             = 'e3855c3056d70cb22b69638f25a89358a2d159308770853e6b1fb63a8250813c'
+  checksum               = '40a8984795a5e47bc8175bcc138caadf749193fdbc42825e66b2924fd1ca3a5d'
+  checksum64             = '2fc2f42145f1b90ef6c0e28376b420bdabcc50b10df1f3389c55194edce41df7'
   checksumType           = 'sha256'
   checksumType64         = 'sha256'
 }
