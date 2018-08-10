@@ -2,10 +2,10 @@
   packageName            = "$env:chocolateyPackageName"
   FileType               = 'exe'
   SilentArgs             = '/S'
-  url                    = 'https://dl.cihar.com/gammu/releases/windows/Gammu-1.39.0-Windows.exe'
-  url64bit               = 'https://dl.cihar.com/gammu/releases/windows/Gammu-1.39.0-Windows-64bit.exe'
-  checksum               = '1f7864030864c03599fffff05c93a08465b31a63211905b06e9ee66d8e735c6d'
-  checksum64             = '92fac61147292ca33fef5e70466c9c5860a8020ba96e8ad787eabcfda182876d'
+  url                    = 'https://dl.cihar.com/gammu/releases/windows/Gammu-1.38.5-Windows.exe'
+  url64bit               = 'https://dl.cihar.com/gammu/releases/windows/Gammu-1.38.5-Windows-64bit.exe'
+  checksum               = 'fdc085576a62301ab7d23de50dbe6769b3e9ed23f6a6383564ad27ef72fa6f3f'
+  checksum64             = '039ae22f630fa8c8abbd8bf62c098ca0db0c8de6401ba84535a6ecf1e8a2c219'
   checksumType           = 'sha256'
   checksumType64         = 'sha256'
 }
