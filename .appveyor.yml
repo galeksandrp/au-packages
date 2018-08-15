@@ -10,7 +10,7 @@ image: 'Visual Studio 2017'
 
 environment:
   # Set au version to use or omit to use the latest. Specify branch name to use development version from Github
-  au_version: trust-package-checksums
+  au_version: multiline-regex
   au_push: true
   # Force test: use 1 to test all, or N to split testing into N groups
   au_test_groups: 1
