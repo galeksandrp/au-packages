@@ -1,8 +1,8 @@
 ﻿$packageArgs = @{
   packageName            = "$env:chocolateyPackageName"
-  url                    = 'https://github.com/Neilpang/acme.sh/archive/2.2.9.zip'
+  url                    = 'https://github.com/Neilpang/acme.sh/archive/1.2.3.zip'
   UnzipLocation          = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)"
-  checksum               = '02b76d5d31ec98441c0aa4f6d8894816257ddca8ad21e51a4eeee7d399fd1c99'
+  checksum               = '52aff0160151b0c74ef3c3760a55cc0aab3fb334b387198947c49d2403f44ff2'
   checksumType           = 'sha256'
 }
 Install-ChocolateyZipPackage @packageArgs
