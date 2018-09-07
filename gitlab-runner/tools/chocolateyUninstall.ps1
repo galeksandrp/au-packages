@@ -6,12 +6,7 @@ if (!$installDir) {
     $InstallDir = "$toolsPath\gitlab-runner"
 }
 
-if (gsv gitlab-runner -ea 0) {
-    & $installDir\gitlab-runner.exe stop
-    & $installDir\gitlab-runner.exe uninstall
-}
-
-gsv gitlab-runner-* | % {
+gsv gitlab-runner* | % {
     & $installDir\gitlab-runner.exe stop --service $_.Name
     & $installDir\gitlab-runner.exe uninstall --service $_.Name
 }

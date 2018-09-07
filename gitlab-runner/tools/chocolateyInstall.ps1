@@ -43,34 +43,35 @@ if ($pp.Service) {
     }
     iex $cmd
 
-	$credentials = @{}
-
-	$credentials[$env:GITLAB_RUNNER_USER_NAME] = $env:USER_PASSWORD
-	$credentials[$env:ADMIN_NAME] = $env:ADMIN_PASSWORD
+	$credentials = @{$env:GITLAB_RUNNER_USER_NAME = $env:USER_PASSWORD; $env:ADMIN_NAME = $env:ADMIN_PASSWORD}
 
 	$credentials.Keys | % {
-		iex "$cmd --service gitlab-runner-$_ --user $Env:COMPUTERNAME\$_ --password $($credentials[$_])"
+		iex "$cmd --service gitlab-runner-$_ --config config-$_.toml --user $Env:COMPUTERNAME\$_ --password $($credentials[$_])"
 	}
 
-    $bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
+    $tags = @{'user' = "-$env:GITLAB_RUNNER_USER_NAME"; 'admin' = "-$env:ADMIN_NAME"; 'system' = ''}
 
-    $path = "$env:PROGRAMFILES\Git\bin\bash.exe -c `"$bashCommand`""
-
-    Get-WmiObject win32_service -Filter "Name='gitlab-runner'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
-
-	$credentials.Keys | % {
-		$bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner-$_'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
+	$tags.Keys | % {
+		$bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner$($tags[$_])'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
 
 		$path = "$env:PROGRAMFILES\Git\bin\bash.exe -c `"$bashCommand`""
 
-		Get-WmiObject win32_service -Filter "Name='gitlab-runner-$_'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
-	}
+		Get-WmiObject win32_service -Filter "Name='gitlab-runner$($tags[$_])'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
 
-    Write-Host "Starting service"
-    iex "$runner_path start"
+		Write-Host "Starting service"
+		iex "$runner_path start --service gitlab-runner$($tags[$_])"
+		
+		if (!((cat "$env:SystemRoot\system32\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])`"")) {
+			iex "$runner_path register -c config$($tags[$_]).toml -n --tag-list cmd,$_,virtualbox --name $Env:COMPUTERNAME$($tags[$_]) --executor shell"
+		}
 
-	$credentials.Keys | % {
-		iex "$runner_path start --service gitlab-runner-$_"
+		if (!((cat "$env:SystemRoot\system32\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-powershell`"")) {
+			iex "$runner_path register -c config$($tags[$_]).toml -n --tag-list powershell,$_,virtualbox --name $Env:COMPUTERNAME$($tags[$_])-powershell --executor shell --shell powershell"
+		}
+
+		if (!((cat "$env:SystemRoot\system32\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-bash`"")) {
+			iex "$runner_path register -c config$($tags[$_]).toml -n --tag-list bash,$_,virtualbox --name $Env:COMPUTERNAME$($tags[$_])-bash --executor shell --shell bash --builds-dir $env:SystemRoot\system32\builds --cache-dir $env:SystemRoot\system32\cache"
+		}
 	}
 }
 
