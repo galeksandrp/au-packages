@@ -1,12 +1,20 @@
 ﻿$toolsPath = Split-Path $MyInvocation.MyCommand.Definition
 . $toolsPath\helpers.ps1
 
-if (gsv gitlab-runner -ea 0) {
-    gitlab-runner.exe stop
-    gitlab-runner.exe uninstall
+$installDir = Get-RunnerInstallDir
+if (!$installDir) {
+    $InstallDir = "$toolsPath\gitlab-runner"
 }
 
-$installDir = Get-RunnerInstallDir
+if (gsv gitlab-runner -ea 0) {
+    & $installDir\gitlab-runner.exe stop
+    & $installDir\gitlab-runner.exe uninstall
+}
+
+gsv gitlab-runner-* | % {
+    & $installDir\gitlab-runner.exe stop --service $_.Name
+    & $installDir\gitlab-runner.exe uninstall --service $_.Name
+}
 
 Write-Warning 'If a gitlab-runner user is created during the installation, it is not removed as a safety measure'
 Write-Warning '  to remove it execute: net user gitlab-runner /delete'

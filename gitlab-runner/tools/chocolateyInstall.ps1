@@ -43,14 +43,35 @@ if ($pp.Service) {
     }
     iex $cmd
 
+	$credentials = @{}
+
+	$credentials[$env:GITLAB_RUNNER_USER_NAME] = $env:USER_PASSWORD
+	$credentials[$env:ADMIN_NAME] = $env:ADMIN_PASSWORD
+
+	$credentials.Keys | % {
+		iex "$cmd --service gitlab-runner-$_ --user $Env:COMPUTERNAME\$_ --password $($credentials[$_])"
+	}
+
     $bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
 
     $path = "$env:PROGRAMFILES\Git\bin\bash.exe -c `"$bashCommand`""
 
     Get-WmiObject win32_service -Filter "Name='gitlab-runner'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
 
+	$credentials.Keys | % {
+		$bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner-$_'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
+
+		$path = "$env:PROGRAMFILES\Git\bin\bash.exe -c `"$bashCommand`""
+
+		Get-WmiObject win32_service -Filter "Name='gitlab-runner-$_'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
+	}
+
     Write-Host "Starting service"
     iex "$runner_path start"
+
+	$credentials.Keys | % {
+		iex "$runner_path start --service gitlab-runner-$_"
+	}
 }
 
 if ($pp.Autologon) { 
