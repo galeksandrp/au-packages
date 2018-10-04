@@ -10,7 +10,7 @@ image: 'Visual Studio 2017'
 
 environment:
   # Set au version to use or omit to use the latest. Specify branch name to use development version from Github
-  au_version: trust-package-checksums
+  au_version: 1c
   au_push: true
   # Force test: use 1 to test all, or N to split testing into N groups
   au_test_groups: 1
@@ -44,7 +44,7 @@ environment:
   YANDEX_DISK_TOKEN:
     secure: q1yHDqhotQaBRDPrI41wp7BajcO7z1qrM556tXuH3haoeNJkZFHP6D2RXEsHJz33
 
-  push_url:
+  au_pushurl:
     secure: 1kUKPV7OAk06r4CnRfnHvYfhKxDnpGuoZSgAiXvrkzdSbbCsZ6drme0W787jcwukK4lYwbsAyHI6eETS85yoqw==
 
   1C_USERNAME:
@@ -53,7 +53,7 @@ environment:
   1C_PASSWORD:
     secure: OtyD7HJLCJn07582k+7gMw==
 
-  TrustPackageChecksums: true
+  au_TrustPackageChecksums: true
 
 init:
 - git config --global user.email "chocolatey@realdimensions.net"
