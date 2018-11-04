@@ -1,4 +1,5 @@
 import-module au
+import-module $env:ChocolateyInstall\helpers\chocolateyInstaller.psm1
 
 function global:au_SearchReplace {
    @{
@@ -10,15 +11,32 @@ function global:au_SearchReplace {
 }
 
 function global:au_GetLatest {
-	$baseURL = 'https://www.gnivc.ru'
-	$filepath = (curl "$baseURL/software/fnspo/software_ul_fl/pdf417/").Links.href -match '\.rar$'
-	$url = "$baseURL$filepath"
-	([uri]$url).segments[-1] -match '_([0-9]+[0-9_]+[0-9]+)'
+	$versions = [ordered]@{}
 
-	@{
-		URL32   = $url
-		Version = $Matches[1] -replace '_','.'
+	$baseURL = 'https://www.gnivc.ru'
+
+	"/software/fnspo/software_ul_fl/pdf417/","/software/fnspo/software_ul_fl/pdf_417/158125/" | % {
+		(curl "$baseURL/$_").Links.href -match '\.(rar|zip)$'
+	} | Get-Unique | % {
+		$URL32 = "$baseURL$_"
+		$archivePath = "$env:TMP\$($([uri]$URL32).segments[-1])"
+
+		Get-ChocolateyWebFile 'pdf417' $archivePath $URL32
+
+		$versionFolderPath = "$env:TMP\$($(ls $archivePath).BaseName)"
+
+		Get-ChocolateyUnzip $archivePath $versionFolderPath
+
+		$(ls "$versionFolderPath\*.msi").BaseName -match '\(([0-9]+[0-9.]+[0-9]+)\)'
+
+		$versions[$Matches[1]] = @{
+			URL32   = $URL32
+			Version = $Matches[1]
+			File    = $(ls "$versionFolderPath\*.msi") -replace [regex]::escape("$versionFolderPath\"),'$env:TMP\'
+		}
 	}
+
+	@{'Streams' = $versions}
 }
 
 update
