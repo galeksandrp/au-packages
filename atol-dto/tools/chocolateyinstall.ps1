@@ -39,17 +39,19 @@ $packageArgs = @{
 }
 Install-ChocolateyZipPackage @packageArgs
 
+$usbDriversFolderPath = 'USB_Drivers'
+
 $foldername = getFoldername
 
 $packageArgs = @{
   FileFullPath           = "$env:TMP\10.4.1\installer\exe\KKT10-10.4.1-windows32-setup.exe"
   FileFullPath64         = "$env:TMP\10.4.1\installer\exe\KKT10-10.4.1-windows64-setup.exe"
   Destination            = "$env:TMP"
-  SpecificFolder         = "USB_Drivers\$foldername"
+  SpecificFolder         = "$usbDriversFolderPath\$foldername"
 }
 Get-ChocolateyUnzip @packageArgs
 
-(Get-AuthenticodeSignature "$env:TMP\USB_Drivers\$foldername\atol-usbcom.cat").SignerCertificate | Export-Certificate -FilePath "$env:TMP\atol-usbcom.cer"
+(Get-AuthenticodeSignature "$env:TMP\$usbDriversFolderPath\$foldername\atol-usbcom.cat").SignerCertificate | Export-Certificate -FilePath "$env:TMP\atol-usbcom.cer"
  
 Import-Certificate -FilePath "$env:TMP\atol-usbcom.cer" -CertStoreLocation Cert:\LocalMachine\TrustedPublisher
 
