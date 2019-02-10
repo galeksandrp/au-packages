@@ -71,7 +71,8 @@ install:
 # - cinst chocolatey-core.extension
 
 before_build:
-- 'control intl.cpl,, /f:"%APPVEYOR_BUILD_FOLDER%\locale.xml" || exit 0'
+- ps: Set-WinSystemLocale -SystemLocale ru-RU
+- ps: Set-WinUserLanguageList -LanguageList (New-WinUserLanguageList -Language ru-RU)
 - ps: Restart-Computer
 - ps: Start-Sleep -s 300
 
