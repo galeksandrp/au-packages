@@ -72,7 +72,6 @@ install:
 
 before_build:
 - ps: Set-WinSystemLocale -SystemLocale ru-RU
-- ps: Set-WinUserLanguageList -LanguageList (New-WinUserLanguageList -Language ru-RU)
 - ps: Restart-Computer
 - ps: Start-Sleep -s 300
 
