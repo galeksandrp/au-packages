@@ -14,7 +14,7 @@ branches:
 
 environment:
   # Set au version to use or omit to use the latest. Specify branch name to use development version from Github
-  au_version:
+  au_version: master
   au_push: true
   # Force test: use 1 to test all, or N to split testing into N groups
   au_test_groups: 1
@@ -54,6 +54,11 @@ install:
 - ps: 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
 - ps: $PSVersionTable
 - git --version
+
+# Use shitty approach because Chocolatey open-source Appveyor builder is broken and not include Chocolatey's helpers in nupkg at all
+
+- ps: curl 'https://raw.githubusercontent.com/galeksandrp/choco/a65d0d7c99296b7391d91a4a0708de1bd5692ac1/src/chocolatey.resources/helpers/functions/Get-WebHeaders.ps1' -OutFile $env:ChocolateyInstall\helpers\functions\Get-WebHeaders.ps1
+- ps: curl 'https://raw.githubusercontent.com/galeksandrp/choco/a65d0d7c99296b7391d91a4a0708de1bd5692ac1/src/chocolatey.resources/helpers/functions/Get-ChocolateyWebFile.ps1' -OutFile $env:ChocolateyInstall\helpers\functions\Get-ChocolateyWebFile.ps1
 - choco --version
 - ps: |
     git clone -q https://github.com/majkinetor/au.git $Env:TEMP/au
