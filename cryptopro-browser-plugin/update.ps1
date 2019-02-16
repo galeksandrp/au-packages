@@ -24,7 +24,8 @@ function global:au_GetLatest {
 	@{
         URL32   = $URL32
         Version = (Get-Item "$env:TMP\cadesplugin.exe").VersionInfo.ProductVersion
+		Options = $options
     }
 }
 
-update -NoCheckUrl
+update
