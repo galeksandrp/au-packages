@@ -77,7 +77,10 @@ install:
 
 # Uncomment the below line if you are using any of the functions from chocolatey-core.extension - https://chocolatey.org/packages/chocolatey-core.extension. Ensure you also have it listed in your package's dependencies
 # - cinst chocolatey-core.extension
-    
+
+before_build:
+- ps: if ($env:APPVEYOR_REPO_COMMIT_MESSAGE.Contains('[ci rdp]')) {$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))}
+
 build_script:
 - ps: |
     $ErrorActionPreference = 'Continue'
@@ -121,5 +124,5 @@ notifications:
   on_build_failure: true
   on_build_status_changed: true
 
-on_finish:
-- ps: if ($env:APPVEYOR_REPO_COMMIT_MESSAGE.Contains('[ci rdp]')) {$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))}
+#on_finish:
+#- ps: if ($env:APPVEYOR_REPO_COMMIT_MESSAGE.Contains('[ci rdp]')) {$blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))}
