@@ -8,7 +8,7 @@ function global:au_SearchReplace {
 
 function global:au_BeforeUpdate() {
     #Download $Latest.URL32 / $Latest.URL64 in tools directory and remove any older installers.
-    Get-RemoteFiles -Purge
+    Get-RemoteFiles -Purge -NoSuffix
 }
 
 function global:au_GetLatest {
@@ -17,7 +17,8 @@ function global:au_GetLatest {
 	@{
         URL32   = 'https://ci.appveyor.com/api/projects/galeksandrp/packer/artifacts/bin/packer.exe?branch=appveyor-virtualbox-vbox'
         Version = cat "$env:TMP\VERSION"
+        FileType = 'exe'
     }
 }
 
-update
+update -ChecksumFor none
