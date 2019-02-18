@@ -39,13 +39,13 @@ environment:
 
   # Chocolatey API key - to push updated packages
   api_key:
-    secure: Xj1/G205BWukWmwjBWaRfQ48TgyHpYmv+wKT9C8I8GX5cCRygpQTV3SY6Zkv3Tg2 # https://ci.appveyor.com/tools/encrypt
+    secure: kkKf6QK1tkEWwtbzMye5FPujBrqc6TQDU8AHM2z9rYY= # https://ci.appveyor.com/tools/encrypt
 
   YANDEX_DISK_TOKEN:
     secure: q1yHDqhotQaBRDPrI41wp7BajcO7z1qrM556tXuH3haoeNJkZFHP6D2RXEsHJz33
 
   au_pushurl:
-    secure: 1kUKPV7OAk06r4CnRfnHvYfhKxDnpGuoZSgAiXvrkzdSbbCsZ6drme0W787jcwukK4lYwbsAyHI6eETS85yoqw==
+    secure: XH9q5x4eWqPg3kXv2Ajtj4e//HagSQmIgApnwS+dvmGgT7FfUmQ3BkU3mmw/bokCLtFsnlsKa0mvpGETSpVRDA==
 
   1C_USERNAME:
     secure: PfjLaMgeOEeYbn3Rx4UBSA==
