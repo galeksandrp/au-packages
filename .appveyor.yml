@@ -53,6 +53,12 @@ environment:
   1C_PASSWORD:
     secure: OtyD7HJLCJn07582k+7gMw==
 
+  BUSINESS_RU_ONLINE_CHECK_NAME:
+    secure: A7ZLdYKsTuBBLZIZ5KTXCQ==
+
+  BUSINESS_RU_ONLINE_CHECK_PASSWORD:
+    secure: cAh5TL6G4aL/IR7v4YZprw==
+
   au_TrustPackageChecksums: true
 
 init:
