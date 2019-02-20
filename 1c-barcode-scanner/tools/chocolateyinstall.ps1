@@ -2,12 +2,32 @@
 
 $filename = 'setup1c.exe'
 
-$packageArgs = @{
-  packageName            = "$env:chocolateyPackageName"
-  FileType               = 'exe'
-  SilentArgs             = '/s /sp"/s /v"/qn /norestart""'
-  File                   = "$toolsDir\$filename"
+function install {
+    $packageArgs = @{
+      packageName            = "$env:chocolateyPackageName"
+      FileType               = 'exe'
+      SilentArgs             = '/s /sp"/s /v"/qn /norestart""'
+      File                   = "$toolsDir\$filename"
+    }
+    Install-ChocolateyInstallPackage @packageArgs
 }
-Install-ChocolateyInstallPackage @packageArgs
+
+function installArchive {
+    $packageArgs = @{
+      FileFullPath           = "$toolsDir\$filename"
+      Destination            = "$env:TMP"
+    }
+    Get-ChocolateyUnzip @packageArgs
+
+    $packageArgs = @{
+      packageName            = "$env:chocolateyPackageName"
+      FileType               = 'exe'
+      SilentArgs             = '/s /sp"/s /v"/qn /norestart""'
+      File                   = "$env:TMP\ScanOPOS.exe"
+    }
+    Install-ChocolateyInstallPackage @packageArgs
+}
+
+install
 
 rm "$toolsDir\$filename"
