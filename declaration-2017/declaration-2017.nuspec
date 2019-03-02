@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>declaration-2017</id>
-    <version>0.1.0</version>
+    <version>1.2.0</version>
     <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/1c/declaration-2017</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>Declaration 2017</title>
