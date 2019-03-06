@@ -1,6 +1,6 @@
 ﻿$toolsDir = "$(Split-Path -parent $MyInvocation.MyCommand.Definition)"
 
-$filename = 'sbrf-onlinekassa_5712dece-6c3a-417e-98c0-aceef17c8557.exe'
+$filename = ''
 
 $packageArgs = @{
   packageName            = "$env:chocolateyPackageName"
