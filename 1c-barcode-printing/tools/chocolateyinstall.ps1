@@ -8,8 +8,8 @@ $packageArgs = @{
   packageName            = "$env:chocolateyPackageName"
   FileType               = 'exe'
   SilentArgs             = "/s /sp`"/s /f1`"$toolsDir\setup-fixed-instdir.iss`"`""
-  url                    = 'https://its.1c.ru/db/files/1CITS/EXE/TradeWare/1C/1CBarCode/1CBarCode.exe'
-  checksum               = '881cd3be8991d471d64ae3bcf2bba70a4536aa533dc946e268534b7ca47f03e4'
+  url                    = 'https://dl04.1c.ru/public/file/get/4a8c2bdb-3df3-11e6-a81e-005056910018'
+  checksum               = '871aa0ea32000b9e6724b34730e8350b746a6f2af1a821c08d1de903000af3f3'
   checksumType           = 'sha256'
 }
 Install-ChocolateyPackage @packageArgs

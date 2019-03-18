@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>1c-barcode-printing</id>
-    <version>8.0.14.2</version>
+    <version>8.1.7.9</version>
     <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/master/1c-barcode-printing</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>1С:Barcode printing (Install)</title>
