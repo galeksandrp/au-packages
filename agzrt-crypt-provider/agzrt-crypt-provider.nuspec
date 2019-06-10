@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>agzrt-crypt-provider</id>
-    <version>1.11</version>
+    <version>1.12</version>
     <packageSourceUrl>https://github.com/galeksandrp/chocolatey-packages/tree/agzrt-crypt-provider</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>AGZRT Crypt Provider (Install)</title>
