@@ -35,6 +35,7 @@ if ($pp.Service) {
     }
 
     Write-Host "Installing gitlab-runner service"
+	$runner_path += ' --log-level warn'
     $cmd = "$runner_path install"
     if ($Username) {
         Add-User $Username $Password
@@ -46,6 +47,7 @@ if ($pp.Service) {
 	$credentials = @{$env:GITLAB_RUNNER_USER_NAME = $env:USER_PASSWORD; $env:ADMIN_NAME = $env:ADMIN_PASSWORD}
 
 	$credentials.Keys | % {
+		Add-ServiceLogonRight $_
 		iex "$cmd --service gitlab-runner-$_ --config config-$_.toml --user $Env:COMPUTERNAME\$_ --password $($credentials[$_])"
 	}
 
@@ -61,17 +63,21 @@ if ($pp.Service) {
 		Write-Host "Starting service"
 		iex "$runner_path start --service gitlab-runner$($tags[$_])"
 		
-		if (!((cat "$env:SystemRoot\system32\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])`"")) {
-			iex "$runner_path register -c config$($tags[$_]).toml -n --tag-list cmd,$_,virtualbox --name $Env:COMPUTERNAME$($tags[$_]) --executor shell"
-		}
+        if ($pp.RegisterRegistrationToken -is [string]) {
+		    $gitlabRunnerRegisterCommand = "$runner_path register -c config$($tags[$_]).toml -n --url `"$($pp.RegisterUrl)`" --registration-token `"$($pp.RegisterRegistrationToken)`" --name $Env:COMPUTERNAME$($tags[$_])"
+		
+		    if (!((cat "$PWD\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])`"")) {
+			    iex "$gitlabRunnerRegisterCommand --tag-list cmd,$_,virtualbox --executor shell"
+		    }
 
-		if (!((cat "$env:SystemRoot\system32\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-powershell`"")) {
-			iex "$runner_path register -c config$($tags[$_]).toml -n --tag-list powershell,$_,virtualbox --name $Env:COMPUTERNAME$($tags[$_])-powershell --executor shell --shell powershell"
-		}
+		    if (!((cat "$PWD\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-powershell`"")) {
+			    iex "$gitlabRunnerRegisterCommand-powershell --tag-list powershell,$_,virtualbox --executor shell --shell powershell"
+		    }
 
-		if (!((cat "$env:SystemRoot\system32\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-bash`"")) {
-			iex "$runner_path register -c config$($tags[$_]).toml -n --tag-list bash,$_,virtualbox --name $Env:COMPUTERNAME$($tags[$_])-bash --executor shell --shell bash --builds-dir $env:SystemRoot\system32\builds --cache-dir $env:SystemRoot\system32\cache"
-		}
+		    if (!((cat "$PWD\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-bash`"")) {
+			    iex "$gitlabRunnerRegisterCommand-bash --tag-list bash,$_,virtualbox --executor shell --shell bash --builds-dir $PWD\builds --cache-dir $PWD\cache"
+		    }
+        }
 	}
 }
 
