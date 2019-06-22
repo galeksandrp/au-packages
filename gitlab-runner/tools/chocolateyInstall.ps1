@@ -25,59 +25,54 @@ mv $installDir\gitlab*.exe $installDir\gitlab-runner.exe -Force
 
 $runner_path = Join-Path $installDir 'gitlab-runner.exe'
 Install-BinFile gitlab-runner $runner_path
+$runner_path += ' --log-level warn'
 
 if ($pp.Service) {
     if ($pp.Autologon) { throw 'Autologon and Service parameters are mutually exclusive' }
 
-    if ($pp.Service -is [string]) { 
-        $Username, $Password = $pp.Service -split ':'
-        if (!$Password) { throw 'When specifying service user, password is required' } 
-    }
-
-    Write-Host "Installing gitlab-runner service"
-	$runner_path += ' --log-level warn'
-    $cmd = "$runner_path install"
-    if ($Username) {
-        Add-User $Username $Password
-        Add-ServiceLogonRight $Username
-        $cmd += " --user $Env:COMPUTERNAME\$Username --password $Password" 
-    }
-    iex $cmd
-
-	$credentials = @{$env:GITLAB_RUNNER_USER_NAME = $env:USER_PASSWORD; $env:ADMIN_NAME = $env:ADMIN_PASSWORD}
-
-	$credentials.Keys | % {
-		Add-ServiceLogonRight $_
-		iex "$cmd --service gitlab-runner-$_ --config config-$_.toml --user $Env:COMPUTERNAME\$_ --password $($credentials[$_])"
-	}
-
-    $tags = @{'user' = "-$env:GITLAB_RUNNER_USER_NAME"; 'admin' = "-$env:ADMIN_NAME"; 'system' = ''}
-
-	$tags.Keys | % {
-		$bashCommand = (Get-WmiObject win32_service -Filter "Name='gitlab-runner$($tags[$_])'").PathName -replace '([a-zA-Z])+:\\','/$1/' -replace '\\','/'
-
-		$path = "$env:PROGRAMFILES\Git\bin\bash.exe -c `"$bashCommand`""
-
-		Get-WmiObject win32_service -Filter "Name='gitlab-runner$($tags[$_])'" | Invoke-WmiMethod -Name Change -ArgumentList @($null,$null,$null,$null,$null,$path)
-
-		Write-Host "Starting service"
-		iex "$runner_path start --service gitlab-runner$($tags[$_])"
+    $services = $pp.Keys | % {$servicesFromPackageParameters = @()} {
+        if ($_ -match '^Service') {
+            $servicesFromPackageParameters += $pp[$_];
+        }
+    } {$servicesFromPackageParameters} | % {
+		$Username, $Password, $gitlabRunnerName = ''
+		$tag = 'system'
 		
+        if ($_ -is [string]) { 
+            $Username, $Password, $tag = $_ -split ':'
+			$gitlabRunnerName = "-$Username"
+            if (!$Password) { throw 'When specifying service user, password is required' }
+        }
+
+        Write-Host "Installing gitlab-runner service"
+        $cmd = "$runner_path install"
+        if ($Username) {
+            Add-User $Username $Password
+            Add-ServiceLogonRight $Username
+            $cmd += " --service gitlab-runner$gitlabRunnerName --config config$gitlabRunnerName.toml --user $Env:COMPUTERNAME\$Username --password $Password"
+        }
+        iex $cmd
+
+		$gitlabRunnerWorkingDirectory = &"$env:PROGRAMFILES\Git\usr\bin\cygpath.exe" "$PWD"
+
         if ($pp.RegisterRegistrationToken -is [string]) {
-		    $gitlabRunnerRegisterCommand = "$runner_path register -c config$($tags[$_]).toml -n --url `"$($pp.RegisterUrl)`" --registration-token `"$($pp.RegisterRegistrationToken)`" --name $Env:COMPUTERNAME$($tags[$_])"
+		    $gitlabRunnerRegisterCommand = "$runner_path register -c config$gitlabRunnerName.toml -n --url `"$($pp.RegisterUrl)`" --registration-token `"$($pp.RegisterRegistrationToken)`" --name $Env:COMPUTERNAME$gitlabRunnerName"
 		
-		    if (!((cat "$PWD\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])`"")) {
-			    iex "$gitlabRunnerRegisterCommand --tag-list cmd,$_,virtualbox --executor shell"
+		    if (!((cat "$PWD\config$gitlabRunnerName.toml") -match "name = `"$Env:COMPUTERNAME$gitlabRunnerName`"")) {
+			    iex "$gitlabRunnerRegisterCommand --tag-list cmd,$tag,virtualbox --executor shell"
 		    }
 
-		    if (!((cat "$PWD\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-powershell`"")) {
-			    iex "$gitlabRunnerRegisterCommand-powershell --tag-list powershell,$_,virtualbox --executor shell --shell powershell"
+		    if (!((cat "$PWD\config$gitlabRunnerName.toml") -match "name = `"$Env:COMPUTERNAME$gitlabRunnerName-powershell`"")) {
+			    iex "$gitlabRunnerRegisterCommand-powershell --tag-list powershell,$tag,virtualbox --executor shell --shell powershell"
 		    }
 
-		    if (!((cat "$PWD\config$($tags[$_]).toml") -match "name = `"$Env:COMPUTERNAME$($tags[$_])-bash`"")) {
-			    iex "$gitlabRunnerRegisterCommand-bash --tag-list bash,$_,virtualbox --executor shell --shell bash --builds-dir $PWD\builds --cache-dir $PWD\cache"
+		    if (!((cat "$PWD\config$gitlabRunnerName.toml") -match "name = `"$Env:COMPUTERNAME$gitlabRunnerName-bash`"")) {
+			    iex "$gitlabRunnerRegisterCommand-bash --tag-list bash,$tag,virtualbox --executor shell --shell bash --builds-dir $gitlabRunnerWorkingDirectory/builds --cache-dir $gitlabRunnerWorkingDirectory/cache"
 		    }
         }
+
+		Write-Host "Starting service"
+		iex "$runner_path start --service gitlab-runner$gitlabRunnerName"
 	}
 }
 
