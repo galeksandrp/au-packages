@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>modern-ie-ie11-win81-virtualbox</id>
+    <version>0.1.0</version>
+    <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/myget/modern-ie-ie11-win81-virtualbox</packageSourceUrl>
+    <owners>galeksandrp</owners>
+    <title>Modern.IE ie11-win81-virtualbox</title>
+    <authors>Microsoft</authors>
+    <projectUrl>https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/</projectUrl>
+    <iconUrl>https://az813057.vo.msecnd.net/images/microsoft.1754683.png</iconUrl>
+    <copyright>Copyright (c) 2017 Microsoft</copyright>
+    <licenseUrl>https://az792536.vo.msecnd.net/vms/release_notes_license_terms_8_1_15.pdf</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <docsUrl>https://az792536.vo.msecnd.net/vms/release_notes_license_terms_8_1_15.pdf</docsUrl>
+    <bugTrackerUrl>https://developer.microsoft.com/en-us/microsoft-edge/support/</bugTrackerUrl>
+    <tags>microsoft vm virtual-machine windows windows7 windows8 windows81 windows10 ie internet-explorer modernie modern-ie</tags>
+    <summary>Test Microsoft Edge (EdgeHTML) and versions of IE8 through IE11 using free virtual machines you download and manage locally.</summary>
+    <description>Test Microsoft Edge (EdgeHTML) and versions of IE8 through IE11 using free virtual machines you download and manage locally.
+
+Before installing, please note:
+These virtual machines expire after 90 days. We recommend setting a snapshot when you first install the virtual machine which you can roll back to later. Mac users will need to use a tool that supports zip64, like The Unarchiver, to unzip the files.
+The password to your VM is "Passw0rd!"</description>
+    <releaseNotes>https://az792536.vo.msecnd.net/vms/release_notes_license_terms_8_1_15.pdf</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
