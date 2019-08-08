@@ -13,7 +13,8 @@ function global:au_GetLatest {
 	$modernIEVirtualMachineImages = curl 'https://developer.microsoft.com/en-us/microsoft-edge/api/tools/vms/' | ConvertFrom-Json
 
 	$modernIEVirtualMachineImage = $modernIEVirtualMachineImages | ? {$_.name -eq 'IE11 on Win7 (x86)'}
-	$modernIEVirtualMachineImage = $modernIEVirtualMachineImage.software.files | ? {$_.name -eq 'IE11.Win7.VirtualBox.zip'}
+	$modernIEVirtualMachineImage = $modernIEVirtualMachineImage.software | ? {$_.name -eq 'VirtualBox'}
+	$modernIEVirtualMachineImage = $modernIEVirtualMachineImage.files | ? {$_.name -match '\.zip$'}
 
 	$modernIEVirtualMachineImageVersion = $modernIEVirtualMachineImage.url -split '/' | ? {$_ -match '^VMBuild_'}
 	$modernIEVirtualMachineImageVersion = ($modernIEVirtualMachineImageVersion -split '_')[1]
