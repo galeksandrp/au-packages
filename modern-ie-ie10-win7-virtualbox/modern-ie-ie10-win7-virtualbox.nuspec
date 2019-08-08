@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>modern-ie-ie10-win7-virtualbox</id>
-    <version>0.1.0</version>
+    <version>2015.09.16</version>
     <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/myget/modern-ie-ie10-win7-virtualbox</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>Modern.IE ie10-win7-virtualbox</title>
