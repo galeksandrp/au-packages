@@ -1,8 +1,8 @@
 ﻿$packageArgs = @{
   packageName            = "$env:chocolateyPackageName"
-  url                    = 'https://az792536.vo.msecnd.net/vms/VMBuild_20150916/VirtualBox/IE8/IE8.Win7.VirtualBox.zip'
+  url                    = 'https://az792536.vo.msecnd.net/vms/VMBuild_20180102/HyperV/IE8/IE8.Win7.HyperV.zip'
   UnzipLocation          = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)"
-  checksum               = '8ddc72b065ada217ace149b3c5ca6195cee5407656252ad4ded12d38ee64c9cc'
+  checksum               = 'c6bf6b15e5194580e6623a00080f9cf4b9ce4f992e9935c6fc2adf1cf5f9ca62'
   checksumType           = 'sha256'
 }
 Install-ChocolateyZipPackage @packageArgs

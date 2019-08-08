@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>modern-ie-ie8-win7-hyperv</id>
-    <version>2015.09.16</version>
+    <version>2018.01.02</version>
     <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/myget/modern-ie-ie8-win7-hyperv</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>Modern.IE ie8-win7-hyperv</title>
