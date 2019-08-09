@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>modern-ie-msedge-win10-hyperv</id>
-    <version>0.1.0</version>
+    <version>2019.03.11</version>
     <packageSourceUrl>https://github.com/galeksandrp/au-packages/tree/myget/modern-ie-msedge-win10-hyperv</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>Modern.IE msedge-win10-hyperv</title>
