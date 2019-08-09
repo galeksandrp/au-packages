@@ -1,0 +1,65 @@
+os: windows
+language: bash
+env:
+  global:
+    - au_version=
+    - au_push=true
+    - au_test_groups=1
+    - github_user_repo=$TRAVIS_REPO_SLUG
+    - mail_user=YOUR_EMAIL_ACCOUNT_HERE_ENCRYPTED_STRING
+    - mail_pass=YOUR_EMAIL_PASSWORD_HERE_ENCRYPTED_STRING
+    - mail_server=smtp.gmail.com
+    - mail_port=587
+    - mail_enablessl=true
+    - secure: nPXJQ+j15ivjVrl+IFE9KETSxflHH9XdWGJkyFuE02YKKbCPSn6OToItjfem008DDd+1II9XR52wxY6KGBQRCuPlnBxBwNrUvbP91SMcokNYhYTbZHKDXVWyX+5UEsIzu98uimw/udQGOLEc3Mn19TvqWk6qjFXjDFpmL1QwIbK36136w6Kvsli/GeW1Ef0clwAUdn8+uV1U0H6jbpa2kTVZBJZuxMqDPGMRpwyplt98Hs9DzJudp2L/Ca4K7+vcB9ox+NR7pQaIUzen5DfXClGlp87iJikKXTKeiD54SQZM0ftM4xaYCU9UzUy1tLmOB+6tuAI9m/LLk4PvnwKbn0VSXKrEH5TMPMrAVBmgxNunEblTJLODIVYLn/EKx139qK0qz722dVarg7SqAgnsl1YN3NkNz6WGDUJHUgkD0T8g4x9kLFIvfTsFz1p2BXNH+UEWwr2wtva4whL0o+/Ya970+mHNyYRA0mjGfF3DybliAJxlQMUsyN04Lfb8VbORDA6r567+QZvwB0lC1IpucPtLrNaWUTHwXxHuO3abqwRSRk3d80OeEs33AthSM0J0diwKNQQ6hPrLVKX2Y/5J9K74xy+vSE3g8ApWVzWG7391J4bExkASyvHypkg4m5IwMLDMUGXjBfrxvnCem25SwzVIuaD4G0jUch87uKvLNzI=
+    - secure: VeOecZiKMKIV72cO5E9YedwasKDNIMG/mMG0bBQRN/Qhn0nTufFbadBu8m1254/eSnlocumZyrP3LSWo5YqNi9fAlgjp68ZYrU2tSl6h94YAmZVsAgii46AauydvuyvX1u67zk5Ty3u/7DcWQIdIHSUAVXB9XZymDzBcAc2cx4kCuIWpvqYoG9HKxC4pbG0inLmpMyu6sRVSTQyIorkscUxuLKVmpKhRECXeg9zkLYPJkgHMOAJNWBWw34U6g1Xbk5XutyA8p0rhRLo4/je7N4dTGicbJAMUt1uXslwNJoJUJs0paCM9esAT+qlWjIAZcMuOfq74EVYNXaFNoH1YjVTzw6fLMte4FdNXmNA7sdA9OTsxSYuIbh3/vgLMmrsO/koD8KcQ4AekI0WDIfCMAq/QCrHrghNxbMzr6iQuXM+XcLOWyDcJO8+aEKCxaAeAlor2SkU6VTx2hfFDx5GgpeZWTrG9yHlAAJuVBw/5Kd5D4GbyXhUtfZAORf5Fk5351c/rFIku0ikVbo2dLj3pwrRR1f1Mo2UQI1bdDDw+KrOYLSnAGZS/qQekFuWcQ84FtMZrjavmugi/A5o6/Xnl9x3u4CIyqZr3bRKWqFm9vtsV9JJMD7SEn3Xtc5bBS0dl0iFHHr9pngPZ5XFF7JWBhCNYgGHRCXVWej2ggJyQfbg=
+    - secure: Wt4Zy5UAvDSt6HNNhqFRmiC6krO9tbtCVqVrUv9t336QFk9+EW7LOzVkTRg03na5cb7PeMJEDoRDoZwNbSeXZ6YcDJRz0r2e3oqFAQ+uO5ka5s+jtQ91tiC7QIpk+YlMFjmo5TDwP49mvE8RLC44l33YLnDGp3nVTPLyRDBkNi7E6Zp7RRlr8e72uEjyC6izFc34uXtIw+TJfGDaXARuB4aEWWowBbm7dkOhmXf2ZRZxR3hnxuY9fG+GiD3Emxg8N63INI+f0++A3K9BBftgF2Vds2KHBiRRGMiFbo1iTiXESPKtf+Uda3U/gyO43heTEBENPxQCDOCCqHLzxRpYJGmhOKJ866t94wpiLaloqaM+nl3fpPItO7+0ycG8woQafCTfcBZYyVBBA1mjJjRdLPKZaOaE7Exe72cQ1lEtfchwVTZyPGs3qjCwoYmYFyaOy8hQyzVxVT7dcb7S0jEEQT7cXabRjSv1RqLeKbTJSC/JbYRFWxvuWIPWuEmjFEf3GXRiduQdRkg5DItsgRNS2oG26ggdEhlW/CzQj67hynKhHHijXqVu2NcseH2hVkzk2YeI+7pdCzxUSKUg6AA2Qb5exwt52xE8o25O3Y9cBKZKqHf9PIACvUB9p9JCXEVzdMJK94OJhxdPv5tH20w69KdTYMa0EUou+zxUeEgAHTk=
+    - secure: t4E0kvp2OQUj0AAnndZAXuCphY5lzmuqVflG3nHihFbZmHyt2H77RCuS83fWBxzhp4WX44v6L2tad4IgSpZUJH2cW/Kpo5Vq9GGH2Ba+Jq8Q5uFIRfPrn+4+IZBFfmxNSR2M+OMJs0MrLsX8GzycXGFJFzqupAGaJ8KzTC44R7P18lC9/Jfh9DamXH22T4bawtjIF7PyOxSXTRlFEGyLmpWiphCrQKU3IzputQOt0YEhITwzPJ/nQkkV9dw988od0N0Vjr49eCoPTvwLGGOSkm/J1LJ5lMGXMzCDhOVJzDwdg3RRdDoTHv09dGiOJItXKt1CghtI6H25VdRQYkHrLCb4A6WEO7kH6U1aeq7kKYn3SsPHYkb6kc/l9jr5Lb/mI7O89EBpQxNvnIMmydAEnUzvO3p9FxOd9GYf9HVniKfqw0PjhtBdkcXP4/WXpruOz5b77Yr4nm6BreXDAVsZNiPH37kD6VrtPto6utkr1cD+TLIEXZEJYBUOQl4R8OB6QW3FwJmVuwIx4/Qs/RtWl2nwueW02Foii72lhTrkcdmX1+hNz+acLCTLNHgEbpy8dxdPAWxq1jpDP8kJrNGR7ZbGtV3jIRYbp092EofsQz5pgoO5tIHwiF9cHZnBV/lkOlajY9iHtr2jcwBkzPZT4xWYsKne5C5DfSdnJ++EjLQ=
+before_install:
+- git config --global user.email "chocolatey@realdimensions.net"
+- git config --global user.name "Chocolatey"
+- git config --global core.safecrlf false
+- powershell Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope LocalMachine
+install:
+- powershell 'Get-CimInstance win32_operatingsystem -Property Caption, OSArchitecture, Version | fl Caption, OSArchitecture, Version'
+- powershell '$PSVersionTable'
+- git --version
+- choco --version
+- |
+  powershell "git clone -q https://github.com/majkinetor/au.git \$Env:TEMP/au
+  . \"\$Env:TEMP/au/scripts/Install-AU.ps1\" \$Env:au_version"
+- |
+  powershell "\"Build info\"
+  '  {0,-20} {1}' -f 'SCHEDULED BUILD:', (\$Env:APPVEYOR_SCHEDULED_BUILD -eq 'true')
+  '  {0,-20} {1}' -f 'FORCED BUILD:'   , (\$Env:APPVEYOR_FORCED_BUILD    -eq 'true')
+  '  {0,-20} {1}' -f 'RE BUILD:'       , (\$Env:APPVEYOR_RE_BUILD        -eq 'true')"
+script:
+- |
+  powershell "\$ErrorActionPreference = 'Continue'
+  
+  if (\$Env:APPVEYOR_PROJECT_NAME  -like '*test*') { ./test_all.ps1 \"random \$Env:au_test_groups\"; return }
+  
+  if ( (\$Env:APPVEYOR_SCHEDULED_BUILD -ne 'true') -and (\$Env:APPVEYOR_FORCED_BUILD -ne 'true') ) {
+  	switch -regex (\$Env:APPVEYOR_REPO_COMMIT_MESSAGE)
+  	{
+  		'\[AU (.+?)\]'   { \$forced = \$Matches[1] }
+  
+  		'\[PUSH (.+?)\]' {
+  			\$packages = \$Matches[1] -split ' '
+  			Write-Host \"PUSHING PACKAGES: \$packages\"
+  			foreach (\$package in \$packages) {
+  				Write-Host (\"{0}`n{1}`n\" -f ('-'*60), \"PACKAGE: \$package\")
+  				\$package_dir = ls -recurse | ? { \$_.Name -eq \"\$package.nuspec\"} | select -First 1 | % Directory
+  				if (!\$package_dir) { Write-Warning \"Can't find package '\$package'\"; continue }
+  				pushd \$package_dir
+  					if (Test-Path update.ps1 -ea 0) { ./update.ps1 }
+  					choco pack; Push-Package;
+  				popd
+  			}
+  			return
+  		}
+  	}
+  }
+  
+  ./update_all.ps1 -ForcedPackages \$forced
+  7z a au_temp.zip \$Env:TEMP\chocolatey\au\*"

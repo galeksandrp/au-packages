@@ -4,6 +4,9 @@ version: '{build}'
 max_jobs: 1
 # History plugin requires complete log
 #clone_depth: 5
+branches:
+  only:
+  - master
 #build:
 #  verbosity: minimal
 
@@ -13,6 +16,11 @@ environment:
   au_push: true
   # Force test: use 1 to test all, or N to split testing into N groups
   au_test_groups: 1
+
+  # Github token to commit pushed packages to repository
+  github_user_repo: {github_user}/{repository}
+  github_api_key:
+    secure: YOUR_GITHUB_API_KEY_HERE_ENCRYPTED_STRING #https://ci.appveyor.com/tools/encrypt
 
 
   # Mail credentials - for error notifications
@@ -27,18 +35,13 @@ environment:
   # ID of the gist used to save run results - create a gist under the github_user (secret or not) and grab the id - https://gist.github.com/name/id
   # Optional, leave empty to create anonymous gist
   gist_id:
-    secure: FHwa3Rj9ofWVSvcOUyAv9vxLjAwNrwQgDK21TCZtwSfS2+2RjugDnIkTZNaqprdp
 
   # Force test: gist id for test results
   gist_id_test:
-    secure: FHwa3Rj9ofWVSvcOUyAv9vxLjAwNrwQgDK21TCZtwSfS2+2RjugDnIkTZNaqprdp
 
   # Chocolatey API key - to push updated packages
   api_key:
-    secure: Xj1/G205BWukWmwjBWaRfQ48TgyHpYmv+wKT9C8I8GX5cCRygpQTV3SY6Zkv3Tg2 # https://ci.appveyor.com/tools/encrypt
-
-  au_pushurl:
-    secure: 1kUKPV7OAk06r4CnRfnHvYfhKxDnpGuoZSgAiXvrkzdSbbCsZ6drme0W787jcwukK4lYwbsAyHI6eETS85yoqw==
+    secure: YOUR_CHOCO_API_KEY_HERE_ENCRYPTED_STRING # https://ci.appveyor.com/tools/encrypt
 
 init:
 - git config --global user.email "chocolatey@realdimensions.net"
