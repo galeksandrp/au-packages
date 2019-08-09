@@ -1,8 +1,8 @@
 ﻿$packageArgs = @{
   packageName            = "$env:chocolateyPackageName"
-  url                    = 'https://az792536.vo.msecnd.net/vms/VMBuild_20150916/VirtualBox/IE10/IE10.Win7.VirtualBox.zip'
+  url                    = 'https://az792536.vo.msecnd.net/vms/VMBuild_20180102/HyperV/IE10/IE10.Win7.HyperV.zip'
   UnzipLocation          = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)"
-  checksum               = 'ff8b51114d13c31742f39fc49a20b035bd5e25e9a35fd29cf41b73aa8fadbd3b'
+  checksum               = '51d46562285708499a5006851f734ab210667b549e6d19350eeadff9096731eb'
   checksumType           = 'sha256'
 }
 Install-ChocolateyZipPackage @packageArgs
