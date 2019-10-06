@@ -12,7 +12,7 @@ function global:au_SearchReplace {
 }
 
 function global:au_BeforeUpdate() {
-    rm 'tools\*.exe'
+    rm 'tools\*.zip'
 }
 
 function global:au_GetLatest {
@@ -33,8 +33,8 @@ function global:au_GetLatest {
 		$version = $version.major, $version.minor -join '.'
 		if (!$versions[$version]) {
 		
-		$url = $_.assets.browser_download_url -match 'traefik_windows-386.exe'
-		$url64 = $_.assets.browser_download_url -match 'traefik_windows-amd64.exe'
+		$url = $_.assets.browser_download_url -match '_windows_386.zip'
+		$url64 = $_.assets.browser_download_url -match '_windows_amd64.zip'
 
 		if ($url -and $url64) { $versions[$version] = @{ # append to external $versions variable since powershell does not reduce well, because in powershell it is possible for hashtable to have items with same names
 			# foreach create hashtables like
