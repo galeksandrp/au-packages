@@ -3,7 +3,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
   <metadata>
     <id>business-ru-online-check</id>
-    <version>1.3.2.8</version>
+    <version>1.3.6.0</version>
     <packageSourceUrl>https://bitbucket.org/galeksandrp/2833passwords/src/chocolatey-packages</packageSourceUrl>
     <owners>galeksandrp</owners>
     <title>Business.ru Online Check</title>
