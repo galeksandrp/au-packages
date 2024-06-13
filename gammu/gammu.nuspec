@@ -43,6 +43,9 @@ This project has originally forked from Gnokii and up to version 0.58 has been n
 
 The Gammu package does not include just this binary, but as well Gammu SMS Daemon, Gammu library and Python bindings which you can use to develop own application accessing mobile phone.</description>
     <releaseNotes>https://wammu.eu/download/gammu/1.39.0/</releaseNotes>
+    <dependencies>
+      <dependency id="vcredist2015" version="14.0.23026.0" />
+    </dependencies>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
